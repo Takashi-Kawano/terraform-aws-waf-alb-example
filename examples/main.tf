@@ -1,6 +1,6 @@
 module "sample" {
     source  = "Takashi-Kawano/waf-alb-sample/aws"
-    version = "1.0.2"
+    version = "1.1.0"
 
     # alb.tf
     alb_name    = "sample"

@@ -1,19 +1,19 @@
 resource "aws_alb" "alb" {
-  name     = "${var.alb_name}"
-  internal = false
-  subnets  = ["${aws_subnet.public1.id}", "${aws_subnet.public2.id}"]
-  security_groups = ["${aws_security_group.alb_sg.id}"]
+    name     = "${var.alb_name}"
+    internal = false
+    subnets  = ["${aws_subnet.public1.id}", "${aws_subnet.public2.id}"]
+    security_groups = ["${aws_security_group.alb_sg.id}"]
 }
 
 resource "aws_lb_listener" "listener" {
-  load_balancer_arn = "${aws_alb.alb.arn}"
-  port              = "80"
-  protocol          = "HTTP"
+    load_balancer_arn = "${aws_alb.alb.arn}"
+    port              = "80"
+    protocol          = "HTTP"
 
-  default_action {
-    type             = "forward"
-    target_group_arn = "${aws_lb_target_group.target_group.arn}"
-  }
+    default_action {
+        type             = "forward"
+        target_group_arn = "${aws_lb_target_group.target_group.arn}"
+    }
 }
 
 resource "aws_lb_target_group" "target_group" {

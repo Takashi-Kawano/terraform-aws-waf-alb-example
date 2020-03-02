@@ -19,7 +19,7 @@ EOF
 }
 
 resource "aws_security_group" "ec2_sg" {
-    name = "${var.ec2_sg_name}"
+    name   = "${var.ec2_sg_name}"
     vpc_id = "${aws_vpc.vpc.id}"
 
     ingress {

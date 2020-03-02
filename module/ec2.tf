@@ -1,19 +1,12 @@
-# variable "ec2_name" {}
-# variable "ec2_ami" {}
-# variable "ec2_instance_type" {}
-# variable "ec2_sg_name" {}
-
-# インスタンス作成
 resource "aws_instance" "ec2" {
-    ami           = "ami-0f02b24005e4aec36"
-    instance_type = "t3.micro"
-    vpc_security_group_ids = ["${aws_security_group.example_ec2.id}"]
+    ami           = "${var.ec2_ami}"
+    instance_type = "${var.ec2_instance_type}"
+    vpc_security_group_ids = ["${aws_security_group.ec2_sg.id}"]
 
-    # subnet_id = "${aws_subnet.public1.id}"
     subnet_id = "${aws_subnet.private.id}"
 
     tags = {
-        Name = "kawano"
+        Name = "${var.ec2_name}"
     }
 
     user_data = <<EOF
@@ -25,9 +18,8 @@ resource "aws_instance" "ec2" {
 EOF
 }
 
-# セキュリティーグループ作成
-resource "aws_security_group" "example_ec2" {
-    name = "kawano-ec2-sg"
+resource "aws_security_group" "ec2_sg" {
+    name = "${var.ec2_sg_name}"
     vpc_id = "${aws_vpc.vpc.id}"
 
     ingress {
